@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Filmatic</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4.2.1/dist/masonry.pkgd.min.js"></script>
+
+    <!-- Template w Handlebars -->
+        <!-- Attore -->
+    <script id="actor-card" type="text/x-handlebars-template">
+       <div id="actor-{{id}}" class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+            <div class="card">
+                <a href="https://www.themoviedb.org/person/{{id}}" target="_blank">
+                    <img class="card-img" src="https://image.tmdb.org/t/p/w500{{profile_path}}" alt="">
+                </a>
+            </div>
+        </div>
+    </script>
+        <!-- Film -->
+    <script id="movie-card" type="text/x-handlebars-template">
+        <div id="movie-{{id}}" class="col-lg-3 col-md-4 col-sm-6 portfolio-item"> 
+            <div class="card">
+                <a href="https://www.themoviedb.org/movie/{{id}}" target="_blank">
+                    <img class="card-img" src="{{#if poster_path}} https://image.tmdb.org/t/p/w500{{poster_path}} {{else}} http://placehold.it/700x400 {{/if}}" alt="">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="https://www.themoviedb.org/movie/{{id}}" target="_blank">{{original_title}}</a>
+                    </h4>
+                    <h6><small><time class="entry-date published" datetime="{{release_date}}">{{release_date}}</time></small></h6>
+                    <p class="card-text">{{#if overview}} {{overview}} {{else}} Sinossi non disponibile in italiano, <a href="#" class="load-original" data-movie-id="{{id}}">vuoi leggere la versione originale?</a>{{/if}}</p>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/javascript" src="index.js"></script>
+    
+</head>
+<body>
+        <!-- Navbar e Imput/Search -->    
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">Filmatic</span>
+            <div class="col-auto">
+                    <form class="form-inline" id="actor-search" method="GET" action="#">
+                        <input class="form-control mr-sm-2" id="actor-name" type="search" placeholder="Search by actor" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="reset">Clear</button>
+                    </form>
+            </div>
+        </nav> 
+        
+        <div class="container">
+                
+                <h1 class="my-4">Tutti i film di <span id="actor-title">...</span></h1>
+
+                <div id="movies-container" class="row"></div> <!-- Contenitore film-->
+        </div>
+</body>
+</html>
